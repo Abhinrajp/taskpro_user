@@ -7,18 +7,20 @@ class Customtext extends StatelessWidget {
   final FontWeight fontWeight;
   final double fontsize;
   final Color color;
-  const Customtext({
-    super.key,
-    required this.text,
-    this.fontWeight = FontWeight.normal,
-    this.fontsize = 12,
-    this.color = Colors.black,
-  });
+  final TextOverflow overflow;
+  const Customtext(
+      {super.key,
+      required this.text,
+      this.fontWeight = FontWeight.normal,
+      this.fontsize = 12,
+      this.color = Colors.black,
+      this.overflow = TextOverflow.visible});
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
+      overflow: overflow,
       style: GoogleFonts.cabin(
           fontSize: fontsize, fontWeight: fontWeight, color: color),
     );
@@ -72,16 +74,17 @@ class Customformfield extends StatelessWidget {
 }
 
 class Customsubmitbutton extends StatelessWidget {
-  final VoidCallback ontap;
+  final Function ontap;
   final Size size;
   final Widget widget;
+  final Color color;
 
-  const Customsubmitbutton({
-    super.key,
-    required this.widget,
-    required this.size,
-    required this.ontap,
-  });
+  const Customsubmitbutton(
+      {super.key,
+      required this.widget,
+      required this.size,
+      required this.ontap,
+      this.color = primarycolour});
 
   @override
   Widget build(BuildContext context) {
@@ -89,10 +92,11 @@ class Customsubmitbutton extends StatelessWidget {
         padding: const EdgeInsets.only(top: 10),
         child: ElevatedButton(
             style: ButtonStyle(
-                backgroundColor:
-                    WidgetStatePropertyAll(primarycolour.withOpacity(.9)),
+                backgroundColor: WidgetStatePropertyAll(color.withOpacity(.9)),
                 minimumSize: WidgetStatePropertyAll(size)),
-            onPressed: ontap,
+            onPressed: () {
+              ontap();
+            },
             child: widget));
   }
 }
@@ -112,20 +116,45 @@ class Connectbutton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: primarycolour.withOpacity(.9),
-          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-          minimumSize: const Size(150, 60),
-          textStyle: const TextStyle(fontSize: 12),
-        ),
-        onPressed: () {
-          onpress;
-        },
-        child: Row(
-          children: [
-            Customtext(text: text, color: Colors.white),
-            const SizedBox(width: 11),
-            icon
-          ],
-        ));
+            backgroundColor: primarycolour.withOpacity(.9),
+            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+            minimumSize: const Size(160, 60),
+            textStyle: const TextStyle(fontSize: 12)),
+        onPressed: onpress,
+        child: Row(children: [
+          Customtext(text: text, color: Colors.white),
+          const SizedBox(width: 11),
+          icon
+        ]));
+  }
+}
+
+class Customprofileformfeild extends StatelessWidget {
+  final FontWeight fontWeight;
+  final double fontsize;
+  final Function(String)? onChanged;
+  const Customprofileformfeild(
+      {super.key,
+      required this.namecontroller,
+      this.fontWeight = FontWeight.normal,
+      this.fontsize = 12,
+      required this.onChanged});
+
+  final TextEditingController namecontroller;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      style: GoogleFonts.cabin(
+          color: Colors.white, fontSize: fontsize, fontWeight: fontWeight),
+      onChanged: onChanged,
+      controller: namecontroller,
+      decoration: const InputDecoration(
+          label: Customtext(
+            text: 'Name',
+            color: Colors.white,
+          ),
+          border: OutlineInputBorder(borderSide: BorderSide())),
+    );
   }
 }

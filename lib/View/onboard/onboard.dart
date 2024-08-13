@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:taskpro_user/View/Authentication/singnupscreen.dart';
+import 'package:taskpro_user/View/Authentication/signup/singnupscreen.dart';
 import 'package:taskpro_user/View/onboard/onboardfirstscreen.dart';
 import 'package:taskpro_user/View/onboard/onboardscreenfour.dart';
 import 'package:taskpro_user/View/onboard/onboardsecondscreen.dart';

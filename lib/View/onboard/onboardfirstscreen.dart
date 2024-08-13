@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:taskpro_user/View/Authentication/singnupscreen.dart';
+import 'package:taskpro_user/View/Authentication/signup/singnupscreen.dart';
 
 class Onboardfirstscreen extends StatelessWidget {
   const Onboardfirstscreen({super.key});

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:taskpro_user/Controller/wishlistcontroller.dart';
+import 'package:taskpro_user/Function/customfunctions.dart';
 import 'package:taskpro_user/Utility/consts.dart';
+import 'package:taskpro_user/View/screens/chat/messagescreen.dart';
+import 'package:taskpro_user/Widget/Popups/showwidget.dart';
 import 'package:taskpro_user/Widget/simplewidgets.dart';
 
 class Workerproflle extends StatefulWidget {
@@ -13,7 +18,11 @@ class Workerproflle extends StatefulWidget {
 class _WorkerproflleState extends State<Workerproflle> {
   @override
   Widget build(BuildContext context) {
+    final Customfunctions customfunctions = Customfunctions();
+    final Wishlistcontroller wishlistcontroller = Get.find();
     var name = widget.worker['firstName'] + ' ' + widget.worker['lastName'];
+    var rating = customfunctions.ratingfunction(
+        widget.worker['rating'], widget.worker['totalwork']);
     return Scaffold(
         body: SingleChildScrollView(
             child: Column(children: [
@@ -42,14 +51,13 @@ class _WorkerproflleState extends State<Workerproflle> {
                 left: 20,
                 top: 50,
                 child: GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: CircleAvatar(
-                      backgroundColor: Colors.white.withOpacity(.5),
-                      child:
-                          const Icon(Icons.arrow_back, color: primarycolour)),
-                ))
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: CircleAvatar(
+                        backgroundColor: Colors.white.withOpacity(.5),
+                        child: const Icon(Icons.arrow_back,
+                            color: primarycolour))))
           ])),
       const SizedBox(height: 40),
       Customtext(
@@ -83,41 +91,76 @@ class _WorkerproflleState extends State<Workerproflle> {
                   fontWeight: FontWeight.bold,
                   fontsize: 14),
               const SizedBox(height: 10),
-              // Customtext(
-              //     text: widget.worker['totalwork'],
-              //     fontWeight: FontWeight.bold,
-              //     fontsize: 14),
+              Row(children: [
+                const Customtext(
+                    text: 'Total works  :   ',
+                    fontWeight: FontWeight.bold,
+                    fontsize: 14),
+                Customtext(
+                    text: widget.worker['totalwork'],
+                    fontWeight: FontWeight.bold,
+                    fontsize: 14)
+              ]),
               const SizedBox(height: 30),
               Column(children: [
                 Row(children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.star_outline_outlined)),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.star_outline_outlined)),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.star_outline_outlined)),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.star_outline_outlined)),
-                ]),
-                const Customtext(text: 'Rate Now'),
-                const SizedBox(height: 30),
-                Row(children: [
-                  const SizedBox(width: 10),
-                  Connectbutton(
-                      onpress: () {},
-                      text: 'Connect',
-                      icon: const Icon(Icons.connect_without_contact_rounded,
-                          color: Colors.white)),
-                  const SizedBox(width: 20),
-                  Connectbutton(
-                      onpress: () {},
-                      text: 'Schedule',
-                      icon: const Icon(Icons.calendar_today_rounded,
-                          color: Colors.white))
+                  Column(children: [
+                    Row(children: [
+                      const Customtext(
+                          text: 'Rating  :  ',
+                          fontWeight: FontWeight.bold,
+                          fontsize: 14),
+                      Customtext(
+                          text: '$rating / 5',
+                          fontWeight: FontWeight.bold,
+                          fontsize: 16)
+                    ]),
+                    const SizedBox(height: 23),
+                    Row(children: [
+                      StreamBuilder(
+                          stream: wishlistcontroller.wishliststream,
+                          builder: (context, snapshot) {
+                            bool isinwishlist = snapshot.data?.any((item) =>
+                                    item['id'] == widget.worker['id']) ??
+                                false;
+                            return Connectbutton(
+                                onpress: () {
+                                  if (isinwishlist) {
+                                    wishlistcontroller
+                                        .removefromwishlist(widget.worker);
+                                    showCustomSnackBar(
+                                        title: 'Removed from favourite',
+                                        msg: 'Worker removed from favourite');
+                                  } else {
+                                    wishlistcontroller
+                                        .addtowishlist(widget.worker);
+                                    showCustomSnackBar(
+                                        title: 'Added to favourite',
+                                        msg: 'Worker added to favourite');
+                                  }
+                                },
+                                text: isinwishlist ? 'Remove' : 'Favourite',
+                                icon: Icon(
+                                    isinwishlist
+                                        ? Icons.favorite
+                                        : Icons.favorite_border_outlined,
+                                    color: Colors.white));
+                          }),
+                      const SizedBox(width: 23),
+                      Connectbutton(
+                          onpress: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        Messagescreen(worker: widget.worker)));
+                          },
+                          text: 'Connect',
+                          icon: const Icon(
+                              Icons.connect_without_contact_rounded,
+                              color: Colors.white))
+                    ])
+                  ])
                 ])
               ])
             ]))

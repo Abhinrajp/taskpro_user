@@ -1,12 +1,10 @@
-import 'dart:developer';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taskpro_user/Services/authservices.dart';
 import 'package:taskpro_user/Utility/consts.dart';
-import 'package:taskpro_user/View/Authentication/loginscreen.dart';
-import 'package:taskpro_user/View/Home/homebottomnavigationbar.dart';
+import 'package:taskpro_user/View/Authentication/login/loginscreen.dart';
 import 'package:taskpro_user/Widget/Simplewidgets.dart';
-import 'package:taskpro_user/Widget/showwidget.dart';
+import 'package:taskpro_user/Widget/Popups/showwidget.dart';
 import 'package:taskpro_user/Widget/validation/validationforsign.dart';
 
 class Singnupscreen extends StatefulWidget {
@@ -20,6 +18,7 @@ class _SingnupscreenState extends State<Singnupscreen> {
   final mailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
   final formkey = GlobalKey<FormState>();
+  Authservices authservices = Authservices();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,7 +67,7 @@ class _SingnupscreenState extends State<Singnupscreen> {
                             icon: const Icon(Icons.lock_outline)),
                         const SizedBox(height: 15),
                         Customsubmitbutton(
-                            ontap: sigup,
+                            ontap: googlesignin,
                             size: const Size(0, 60),
                             widget: Row(children: [
                               SizedBox(
@@ -82,7 +81,7 @@ class _SingnupscreenState extends State<Singnupscreen> {
                                   fontWeight: FontWeight.w500)
                             ])),
                         Customsubmitbutton(
-                            ontap: sigup,
+                            ontap: signup,
                             size: const Size(360, 60),
                             widget: const Customtext(
                                 text: 'Sign up',
@@ -129,37 +128,21 @@ class _SingnupscreenState extends State<Singnupscreen> {
                     )))));
   }
 
-  sigup() async {
-    log(mailcontroller.text);
-    log(passwordcontroller.text);
+  signup() async {
     if (formkey.currentState!.validate()) {
-      try {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-            email: mailcontroller.text, password: passwordcontroller.text);
-        mailcontroller.clear();
-        passwordcontroller.clear();
-        if (!mounted) return;
-        showCustomSnackBar(context,
-            bgcolor: primarycolour,
-            msg: 'Account created',
-            title: 'Account created successfully');
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const Homebottomnavigationbar()),
-          (route) => false,
-        );
-      } catch (e) {
-        if (!mounted) return;
-        showCustomSnackBar(context,
-            bgcolor: primarycolour, msg: 'Error', title: e.toString());
-      }
+      authservices.sigup(mailcontroller.text, passwordcontroller.text, context);
+      await Future.delayed(const Duration(seconds: 10));
+      mailcontroller.clear();
+      passwordcontroller.clear();
     } else {
-      if (!mounted) return;
-      showCustomSnackBar(context,
+      showCustomSnackBar(
           bgcolor: primarycolour,
           msg: 'Fill all the feild',
           title: 'Check all the feild in here');
     }
+  }
+
+  googlesignin() {
+    authservices.googlesignin(context);
   }
 }

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:taskpro_user/Utility/consts.dart';
 import 'package:taskpro_user/View/Authentication/Resetpassword/resetpasswordscreen.dart';
-import 'package:taskpro_user/View/Authentication/singnupscreen.dart';
+import 'package:taskpro_user/View/Authentication/signup/singnupscreen.dart';
 import 'package:taskpro_user/View/Home/homebottomnavigationbar.dart';
 import 'package:taskpro_user/Widget/Simplewidgets.dart';
-import 'package:taskpro_user/Widget/showwidget.dart';
+import 'package:taskpro_user/Widget/Popups/showwidget.dart';
 import 'package:taskpro_user/Widget/validation/validationforsign.dart';
 
 class Loginscreen extends StatefulWidget {
@@ -125,6 +125,7 @@ class _LoginscreenState extends State<Loginscreen> {
 
   login() async {
     if (formkey.currentState!.validate()) {
+      log('top of try');
       try {
         log(mailcontroller.text);
         log(passwordcontroller.text);
@@ -133,10 +134,10 @@ class _LoginscreenState extends State<Loginscreen> {
         mailcontroller.clear();
         passwordcontroller.clear();
         if (!mounted) return;
-        showCustomSnackBar(context,
+        showCustomSnackBar(
             bgcolor: primarycolour,
-            msg: 'Signup success',
-            title: 'Signup successfully');
+            msg: 'Login success',
+            title: 'Loged in successfully');
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -144,11 +145,12 @@ class _LoginscreenState extends State<Loginscreen> {
           (route) => false,
         );
       } catch (e) {
-        showCustomSnackBar(context,
-            bgcolor: primarycolour, msg: 'Error', title: e.toString());
+        log('error');
+        showCustomSnackBar(
+            bgcolor: primarycolour, msg: e.toString(), title: 'Error');
       }
     } else {
-      showCustomSnackBar(context,
+      showCustomSnackBar(
           msg: "Check all feilds in there",
           title: "Fill all the feilds",
           bgcolor: Colors.red);

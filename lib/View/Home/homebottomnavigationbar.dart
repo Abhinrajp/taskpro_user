@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:taskpro_user/Controller/appstatecontroller.dart';
 import 'package:taskpro_user/Utility/consts.dart';
 import 'package:taskpro_user/View/Home/homscreen.dart';
-import 'package:taskpro_user/View/screens/chatscreen.dart';
-import 'package:taskpro_user/View/screens/profilescreen.dart';
-import 'package:taskpro_user/View/screens/searchscreen.dart';
-import 'package:taskpro_user/Widget/showwidget.dart';
+import 'package:taskpro_user/View/screens/chat/chathistoryscreen.dart';
+import 'package:taskpro_user/View/screens/schdulescreen.dart';
+import 'package:taskpro_user/View/screens/Search/searchscreen.dart';
+import 'package:taskpro_user/Widget/Popups/showwidget.dart';
 
 class Homebottomnavigationbar extends StatefulWidget {
   const Homebottomnavigationbar({super.key});
@@ -23,22 +23,22 @@ class _HomebottomnavigationbarState extends State<Homebottomnavigationbar> {
     final Appstatecontroller appstatecontroller = Get.put(Appstatecontroller());
     double displaywidth = MediaQuery.of(context).size.width;
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Obx(() {
           return IndexedStack(
               index: appstatecontroller.currentindex.value,
               children: const [
                 Homscreen(),
                 Searchscreen(),
-                Chatscreen(),
-                Profilescreen()
+                Chathistoryscreen(),
+                Schdulescreen()
               ]);
         }),
         bottomNavigationBar: Container(
             margin: EdgeInsets.all(displaywidth * .05),
             height: displaywidth * .155,
             decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).scaffoldBackgroundColor,
                 boxShadow: [
                   BoxShadow(
                       color: Colors.black.withOpacity(.1),
@@ -137,11 +137,11 @@ class _HomebottomnavigationbarState extends State<Homebottomnavigationbar> {
                     }))));
   }
 
-  List<String> listofstring = ['Home', 'Search', 'Chat', 'Profile'];
+  List<String> listofstring = ['Home', 'Search', 'Chat', 'Works'];
   List<IconData> listoficon = [
     Icons.home_rounded,
     Icons.search,
     Icons.chat_outlined,
-    Icons.person_2_outlined
+    Icons.calendar_month_outlined
   ];
 }

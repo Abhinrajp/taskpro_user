@@ -12,7 +12,20 @@
           "package_name": "in.taskpro.admin"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "303514847232-0ikvs3gohe7jq8ap127aep121vjdgo5e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.taskpro.admin",
+            "certificate_hash": "133ffdeeda79cd8dc5bc9a32c4c2cc433500897a"
+          }
+        },
+        {
+          "client_id": "303514847232-8f0cppbq7c5kogf4v5tgrn5bkvfqpase.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDlZWznVrt30eFPdDBkWB96p5VSpiqPoOo"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303514847232-8f0cppbq7c5kogf4v5tgrn5bkvfqpase.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "303514847232-hu7107j7nt8drj8nlncj6sv680u8dj4u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taskpro"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +56,12 @@
           "package_name": "in.taskpro.user"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "303514847232-8f0cppbq7c5kogf4v5tgrn5bkvfqpase.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDlZWznVrt30eFPdDBkWB96p5VSpiqPoOo"
@@ -39,7 +69,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303514847232-8f0cppbq7c5kogf4v5tgrn5bkvfqpase.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "303514847232-hu7107j7nt8drj8nlncj6sv680u8dj4u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taskpro"
+              }
+            }
+          ]
         }
       }
     },
@@ -50,7 +92,12 @@
           "package_name": "in.taskpro.worker"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "303514847232-8f0cppbq7c5kogf4v5tgrn5bkvfqpase.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDlZWznVrt30eFPdDBkWB96p5VSpiqPoOo"
@@ -58,7 +105,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303514847232-8f0cppbq7c5kogf4v5tgrn5bkvfqpase.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "303514847232-hu7107j7nt8drj8nlncj6sv680u8dj4u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taskpro"
+              }
+            }
+          ]
         }
       }
     }
